@@ -81,7 +81,7 @@ void FSimpleFFmpegModule::StartupModule()
 {
 	FString Test = avcodec_configuration();
 	AVFormatContext* ofmt_ctx = NULL;//其包含码流参数较多，是一个贯穿始终的数据结构，很多函数都要用到它作为参数
-	const char* out_filename = "d:\\out.mp4";//输出文件路径，在这里也可以将mkv改成别的ffmpeg支持的格式，如mp4，flv，avi之类的
+	const char* out_filename = "d:\\a.avi";//输出文件路径，在这里也可以将mkv改成别的ffmpeg支持的格式，如mp4，flv，avi之类的
 	int ret;//返回标志
 
 	av_register_all();//初始化解码器和复用器
