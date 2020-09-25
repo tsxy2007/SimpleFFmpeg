@@ -79,6 +79,7 @@ AVFrame* _video_format_convert(AVFrame* _frame_src, AVPixelFormat _new_fmt, int 
 
 void FSimpleFFmpegModule::StartupModule()
 {
+	return;
 	FString Test = avcodec_configuration();
 	AVFormatContext* ofmt_ctx = NULL;//其包含码流参数较多，是一个贯穿始终的数据结构，很多函数都要用到它作为参数
 	const char* out_filename = "d:\\a.avi";//输出文件路径，在这里也可以将mkv改成别的ffmpeg支持的格式，如mp4，flv，avi之类的

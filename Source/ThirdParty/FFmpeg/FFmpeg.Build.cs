@@ -6,31 +6,35 @@ using UnrealBuildTool;
 
 public class FFmpeg : ModuleRules
 {
-    public string ProjectDirectory
+    public string ProjectDirectory{
+        get{
+            return Path.GetFullPath( Path.Combine(ModuleDirectory, "../../../../../")); 
+        }
+    }
+
+    public string BinariesDirectory
     {
         get
         {
-            return Path.GetFullPath(
-                  Path.Combine(ModuleDirectory, "../../../../../")
-            );
+            return Path.GetFullPath(Path.Combine(PluginDirectory, "Binaries\\ThirdParty"));
         }
     }
     private void CopyDllAndLibToProjectBinaries(string Filepath, ReadOnlyTargetRules Target)
-    {
-
-        string BinariesDirectory = Path.Combine(ProjectDirectory, "Binaries", Target.Platform.ToString());
+    { 
+        string BinariesDir = Path.Combine(ProjectDirectory, "Binaries", Target.Platform.ToString());
         string Filename = Path.GetFileName(Filepath);
-        if (!Directory.Exists(BinariesDirectory))
+        string ToFileFullPath = Path.Combine(BinariesDir, Filename);
+        if (!Directory.Exists(BinariesDir))
         {
-            Directory.CreateDirectory(BinariesDirectory);
+            Directory.CreateDirectory(BinariesDir);
         }
 
-        if (!File.Exists(Path.Combine(BinariesDirectory, Filename)))
+        if (!File.Exists(Path.Combine(BinariesDir, Filename)))
         {
-            File.Copy(Filepath, Path.Combine(BinariesDirectory, Filename), true);
+            File.Copy(Filepath, ToFileFullPath, true);
         }
-
-        RuntimeDependencies.Add(Path.Combine(BinariesDirectory, Filename));
+        Console.WriteLine("DllPath : " + ToFileFullPath);
+        RuntimeDependencies.Add(ToFileFullPath); 
     }
     public FFmpeg(ReadOnlyTargetRules Target) : base(Target)
 	{

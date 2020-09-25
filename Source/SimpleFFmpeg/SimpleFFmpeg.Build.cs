@@ -26,9 +26,9 @@ public class SimpleFFmpeg : ModuleRules
 			new string[]
 			{
 				"Core",
-				"FFmpeg",
-				"X264",
-				"Projects"
+                "Projects",
+                "FFmpeg",
+                "X264",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
