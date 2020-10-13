@@ -15,10 +15,19 @@ public class X264 : ModuleRules
             );
         }
     }
+
+    public string BinaryDirectory
+    {
+        get
+        {
+            return Path.GetFullPath(Path.Combine(ModuleDirectory, "../../../Binaries/ThirdParty"));
+        }
+    }
+
     private void CopyDllAndLibToProjectBinaries(string Filepath, ReadOnlyTargetRules Target)
     {
 
-        string BinariesDirectory = Path.Combine(ProjectDirectory, "Binaries", Target.Platform.ToString());
+        string BinariesDirectory = Path.Combine(BinaryDirectory, Target.Platform.ToString());
         string Filename = Path.GetFileName(Filepath);
         if (!Directory.Exists(BinariesDirectory))
         {

@@ -12,16 +12,17 @@ public class FFmpeg : ModuleRules
         }
     }
 
-    public string BinariesDirectory
+    public string BinaryDirectory
     {
         get
         {
-            return Path.GetFullPath(Path.Combine(PluginDirectory, "Binaries\\ThirdParty"));
+            return Path.GetFullPath(Path.Combine(ModuleDirectory, "../../../Binaries/ThirdParty"));
         }
     }
+
     private void CopyDllAndLibToProjectBinaries(string Filepath, ReadOnlyTargetRules Target)
-    { 
-        string BinariesDir = Path.Combine(ProjectDirectory, "Binaries", Target.Platform.ToString());
+    {
+        string BinariesDir = Path.Combine(BinaryDirectory, Target.Platform.ToString());
         string Filename = Path.GetFileName(Filepath);
         string ToFileFullPath = Path.Combine(BinariesDir, Filename);
         if (!Directory.Exists(BinariesDir))
@@ -56,7 +57,6 @@ public class FFmpeg : ModuleRules
 			PublicSystemIncludePaths.Add(IncPath);
 
 			string LibPath = Path.Combine(ModuleDirectory, "lib", PlatformDir);
-			string BinaryPath = Path.GetFullPath(Path.Combine(ModuleDirectory, "../../../Binaries/ThirdParty", PlatformDir));
             string dllPath = Path.Combine(ModuleDirectory, "dll", PlatformDir);
 
             {
@@ -75,9 +75,9 @@ public class FFmpeg : ModuleRules
                 {
                     FileInfo ItemFile = files[i];
                     PublicDelayLoadDLLs.Add(ItemFile.Name);
-                    CopyDllAndLibToProjectBinaries(Path.Combine(dllPath, ItemFile.Name), Target);
+                    CopyDllAndLibToProjectBinaries(Path.Combine(dllPath, ItemFile.Name), Target); 
                 }
-            }
+            } 
         }
 	}
 
